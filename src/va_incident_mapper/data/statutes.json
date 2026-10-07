@@ -1,0 +1,235 @@
+{
+  "_meta": {
+    "purpose": "Statute reference table. Summaries are paraphrased for orientation only and are NOT legal advice.",
+    "va_verified_on": "2026-10-05",
+    "va_source": "https://law.lis.virginia.gov/vacode/",
+    "federal_note": "Federal citations are standard U.S. Code references. Confirm current text at https://uscode.house.gov before relying on them."
+  },
+  "statutes": [
+    {
+      "id": "va-18.2-152.3",
+      "jurisdiction": "VA",
+      "cite": "Va. Code § 18.2-152.3",
+      "title": "Computer fraud; penalty",
+      "summary": "Using a computer or network without authorization to obtain property or services by false pretenses, embezzle or commit larceny, or convert another's property.",
+      "penalty": "Class 5 felony if value is $1,000 or more; otherwise Class 1 misdemeanor.",
+      "verified": true
+    },
+    {
+      "id": "va-18.2-152.3:1",
+      "jurisdiction": "VA",
+      "cite": "Va. Code § 18.2-152.3:1",
+      "title": "Transmission of unsolicited commercial electronic mail (spam); penalty",
+      "summary": "Falsifying email routing or transmission information when sending spam, or distributing software designed to falsify it.",
+      "penalty": "Class 1 misdemeanor; Class 6 felony above volume or revenue thresholds.",
+      "verified": true
+    },
+    {
+      "id": "va-18.2-152.4",
+      "jurisdiction": "VA",
+      "cite": "Va. Code § 18.2-152.4",
+      "title": "Computer trespass; penalty",
+      "summary": "Accessing a computer without authority, with malicious intent or by deceptive means, to disable or remove data or software, cause malfunction, alter or erase data, copy materials, install keystroke-recording software, or install software that damages systems or disrupts data transmission.",
+      "penalty": "Class 1 misdemeanor; Class 6 felony in several aggravated cases (government or utility systems, damage over $1,000, installing malicious software on more than five computers, keystroke recorders).",
+      "verified": true
+    },
+    {
+      "id": "va-18.2-152.5",
+      "jurisdiction": "VA",
+      "cite": "Va. Code § 18.2-152.5",
+      "title": "Computer invasion of privacy; penalties",
+      "summary": "Using a computer to intentionally examine, without authority, another person's employment, salary, credit, financial or other identifying information.",
+      "penalty": "Class 1 misdemeanor; Class 6 felony for repeat offenses, distribution, or use in another crime.",
+      "verified": true
+    },
+    {
+      "id": "va-18.2-152.5:1",
+      "jurisdiction": "VA",
+      "cite": "Va. Code § 18.2-152.5:1",
+      "title": "Using a computer to gather identifying information; penalties",
+      "summary": "Using a computer to obtain identifying information through material artifice, trickery or deception (the phishing statute).",
+      "penalty": "Class 6 felony; Class 5 felony if the information is sold or distributed, or used in another crime.",
+      "verified": true
+    },
+    {
+      "id": "va-18.2-152.6",
+      "jurisdiction": "VA",
+      "cite": "Va. Code § 18.2-152.6",
+      "title": "Theft of computer services; penalties",
+      "summary": "Willfully obtaining computer services without authorization.",
+      "penalty": "Class 1 misdemeanor; Class 6 felony at $2,500 or more.",
+      "verified": true
+    },
+    {
+      "id": "va-18.2-152.7",
+      "jurisdiction": "VA",
+      "cite": "Va. Code § 18.2-152.7",
+      "title": "Personal trespass by computer; penalty",
+      "summary": "Using a computer or network to cause physical injury to an individual.",
+      "penalty": "Class 3 felony if malicious; Class 6 felony if unlawful but not malicious.",
+      "verified": true
+    },
+    {
+      "id": "va-18.2-152.7:1",
+      "jurisdiction": "VA",
+      "cite": "Va. Code § 18.2-152.7:1",
+      "title": "Harassment by computer; penalty",
+      "summary": "Using a computer or network to communicate obscene, vulgar, profane, lewd or indecent language, obscene suggestions, or threats of illegal or immoral acts, with intent to coerce, intimidate or harass.",
+      "penalty": "Class 1 misdemeanor.",
+      "verified": true
+    },
+    {
+      "id": "va-18.2-152.12",
+      "jurisdiction": "VA",
+      "cite": "Va. Code §§ 18.2-152.12 and 8.01-40.1",
+      "title": "Civil relief; damages (Computer Crimes Act)",
+      "summary": "Civil cause of action for damages, lost profits and costs when injured by a Computer Crimes Act violation. Deadline: the earlier of five years after the last act or two years after discovery of the last act.",
+      "penalty": "Civil damages (not criminal).",
+      "verified": true
+    },
+    {
+      "id": "va-18.2-186.3",
+      "jurisdiction": "VA",
+      "cite": "Va. Code § 18.2-186.3",
+      "title": "Identity theft; penalty; restitution; victim assistance",
+      "summary": "Using another person's identifying information without authority to obtain money, credit, goods or services, avoid prosecution, or impersonate for other unlawful purposes.",
+      "penalty": "Class 1 misdemeanor; Class 6 felony above $1,000 loss or on a second conviction; Class 5 felony for 5+ victims; Class 4 felony for 50+ victims. Restitution required.",
+      "verified": true
+    },
+    {
+      "id": "va-18.2-186.4",
+      "jurisdiction": "VA",
+      "cite": "Va. Code § 18.2-186.4",
+      "title": "Use of a person's identity with the intent to coerce, intimidate, or harass; penalty",
+      "summary": "Publishing a person's name or photograph together with identifying information or their primary residence address, with intent to coerce, intimidate or harass (doxxing).",
+      "penalty": "Class 1 misdemeanor; Class 6 felony with mandatory minimum if the victim is a law enforcement officer or judge.",
+      "verified": true
+    },
+    {
+      "id": "va-18.2-186.6",
+      "jurisdiction": "VA",
+      "cite": "Va. Code § 18.2-186.6",
+      "title": "Breach of personal information notification",
+      "summary": "Owners or licensors of computerized personal information must notify affected Virginia residents and the Attorney General without unreasonable delay after a breach that causes, or is reasonably believed to cause, identity theft or other fraud.",
+      "penalty": "Attorney General civil penalty up to $150,000 per breach or series of similar breaches; individuals may recover direct economic damages.",
+      "verified": true
+    },
+    {
+      "id": "va-18.2-59",
+      "jurisdiction": "VA",
+      "cite": "Va. Code § 18.2-59",
+      "title": "Extortion of money, property or pecuniary benefit",
+      "summary": "Obtaining money, property or a pecuniary benefit by threatening injury to character, person or property, or by threatening to accuse someone of a crime.",
+      "penalty": "Class 5 felony.",
+      "verified": true
+    },
+    {
+      "id": "va-18.2-60",
+      "jurisdiction": "VA",
+      "cite": "Va. Code § 18.2-60",
+      "title": "Threats of death or bodily injury to a person or member of his family; ...; penalties",
+      "summary": "Knowingly communicating, in writing (including email, text or social media post), a threat to kill or do bodily injury to a person, placing that person in reasonable apprehension of death or bodily harm.",
+      "penalty": "Class 6 felony for written or electronic threats.",
+      "verified": true
+    },
+    {
+      "id": "va-18.2-60.3",
+      "jurisdiction": "VA",
+      "cite": "Va. Code § 18.2-60.3",
+      "title": "Stalking; penalty",
+      "summary": "Conduct directed at another person on more than one occasion, by any means including electronic communication, with intent to place the person in reasonable fear of death, criminal sexual assault or bodily injury to themselves or family.",
+      "penalty": "Class 1 misdemeanor; Class 6 felony for a second offense within five years. Courts must issue a no-contact order on conviction.",
+      "verified": true
+    },
+    {
+      "id": "va-18.2-386.2",
+      "jurisdiction": "VA",
+      "cite": "Va. Code § 18.2-386.2",
+      "title": "Unlawful dissemination or sale of images of another; penalty",
+      "summary": "Maliciously disseminating or selling nude or sexually explicit images of another, including digitally altered images, with intent to coerce, harass or intimidate.",
+      "penalty": "Class 1 misdemeanor.",
+      "verified": true
+    },
+    {
+      "id": "us-18-1028",
+      "jurisdiction": "US",
+      "cite": "18 U.S.C. § 1028(a)(7)",
+      "title": "Fraud and related activity in connection with identification documents",
+      "summary": "Knowingly transferring, possessing or using, without lawful authority, a means of identification of another person with intent to commit or aid unlawful activity.",
+      "penalty": "Varies by subsection and loss; see statute.",
+      "verified": false
+    },
+    {
+      "id": "us-18-1028A",
+      "jurisdiction": "US",
+      "cite": "18 U.S.C. § 1028A",
+      "title": "Aggravated identity theft",
+      "summary": "Using another person's means of identification during and in relation to certain enumerated felonies.",
+      "penalty": "Mandatory consecutive two-year term; see statute.",
+      "verified": false
+    },
+    {
+      "id": "us-18-1030",
+      "jurisdiction": "US",
+      "cite": "18 U.S.C. § 1030",
+      "title": "Fraud and related activity in connection with computers (CFAA)",
+      "summary": "Accessing a protected computer without authorization or exceeding authorized access, damaging computers, trafficking in passwords, and extortion involving computers. After Van Buren v. United States (2021), 'exceeds authorized access' is read narrowly: it covers accessing areas of a system that are off-limits to you, not merely misusing access you were given or breaking a terms-of-service rule.",
+      "penalty": "Varies by subsection; see statute.",
+      "verified": false
+    },
+    {
+      "id": "us-18-1343",
+      "jurisdiction": "US",
+      "cite": "18 U.S.C. § 1343",
+      "title": "Fraud by wire, radio, or television",
+      "summary": "A scheme to defraud using interstate wire communications, including email and internet messages.",
+      "penalty": "Up to 20 years; see statute.",
+      "verified": false
+    },
+    {
+      "id": "us-18-2261A",
+      "jurisdiction": "US",
+      "cite": "18 U.S.C. § 2261A(2)",
+      "title": "Stalking (interstate, including by electronic means)",
+      "summary": "Using electronic communication or any interactive computer service in a course of conduct, with intent to harass or intimidate, that places a person in reasonable fear of death or serious injury or causes substantial emotional distress.",
+      "penalty": "Varies; see 18 U.S.C. § 2261(b).",
+      "verified": false
+    },
+    {
+      "id": "us-18-875",
+      "jurisdiction": "US",
+      "cite": "18 U.S.C. § 875(c) and (d)",
+      "title": "Interstate communications (threats and extortion)",
+      "summary": "Transmitting in interstate commerce a threat to injure a person (subsection c), or a threat to injure property, reputation or accuse of a crime with intent to extort (subsection d).",
+      "penalty": "Subsection (c) up to 5 years; subsection (d) up to 2 years in many cases.",
+      "verified": false
+    },
+    {
+      "id": "us-18-2701",
+      "jurisdiction": "US",
+      "cite": "18 U.S.C. § 2701",
+      "title": "Unlawful access to stored communications (Stored Communications Act)",
+      "summary": "Intentionally accessing without authorization a facility through which an electronic communication service is provided and obtaining stored communications.",
+      "penalty": "Varies; see statute.",
+      "verified": false
+    },
+    {
+      "id": "us-18-2511",
+      "jurisdiction": "US",
+      "cite": "18 U.S.C. § 2511",
+      "title": "Interception of communications (Wiretap Act)",
+      "summary": "Intentionally intercepting wire, oral or electronic communications, including by spyware that captures them in transit.",
+      "penalty": "Up to 5 years; see statute.",
+      "verified": false
+    },
+    {
+      "id": "us-47-223",
+      "jurisdiction": "US",
+      "cite": "47 U.S.C. § 223(a)",
+      "title": "Obscene or harassing telecommunications",
+      "summary": "Using a telecommunications device to make anonymous communications intended to annoy, abuse, threaten or harass. Courts apply it narrowly to unprotected speech.",
+      "penalty": "Fine and up to 2 years; see statute.",
+      "verified": false
+    }
+  ]
+}

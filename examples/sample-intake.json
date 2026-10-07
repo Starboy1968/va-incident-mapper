@@ -1,0 +1,69 @@
+{
+  "schema": "va-incident-mapper-intake/1",
+  "created_at": "2026-10-06T12:00:00Z",
+  "summary": "Someone I blocked keeps making new accounts and messaging me threats.",
+  "attack_types": [
+    "threats",
+    "alt-account-evasion"
+  ],
+  "occurred_first": "2026-03-01",
+  "occurred_last": "2026-03-10",
+  "ongoing": false,
+  "platform": "ExampleApp",
+  "frequency": "",
+  "accounts": [
+    "@example_sender",
+    "@example_alt_2"
+  ],
+  "know_in_person": "",
+  "told_to_stop": "",
+  "blocked_on": "",
+  "messages": [
+    {
+      "account": "@example_sender",
+      "at": "2026-03-09",
+      "text": "You blocked me but it will not stop. I will find you and hurt you.",
+      "flags": [
+        "contact-after-block",
+        "permanence-declaration"
+      ]
+    },
+    {
+      "account": "@example_alt_2",
+      "at": "2026-03-10",
+      "text": "I have been watching you. Unblock me or you will regret it.",
+      "flags": [
+        "surveillance-claim",
+        "coercive-demand"
+      ]
+    }
+  ],
+  "money_lost": "",
+  "impact": "I no longer feel safe going out alone.",
+  "feelings": [
+    "Afraid for my safety",
+    "Watched or followed"
+  ],
+  "feelings_text": "My heart was pounding and I checked every lock.",
+  "evidence_have": [],
+  "actions_taken": [],
+  "evidence_files": [
+    {
+      "name": "screenshot1.png",
+      "bytes": 26,
+      "sha256": "1218701fc5e5ec726f4de16f99c10164d100f10877148edf6e8291763179bcfe"
+    }
+  ],
+  "agency": "local",
+  "requests": [
+    "Please give me a case or report number",
+    "Please ask the platform(s) involved to preserve the account records so they are not deleted (a preservation request; see 18 U.S.C. \u00a7 2703(f))"
+  ],
+  "case": {
+    "agency": "Example County Sheriff's Office",
+    "officer": "Det. Example",
+    "local_case": "2026-000123",
+    "ic3": ""
+  },
+  "reporter": {}
+}

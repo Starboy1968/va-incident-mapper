@@ -1,0 +1,246 @@
+{
+  "version": "1.0",
+  "note": "Generic communication-behavior markers seen in harassment, stalking and threat cases. Patterns are case-insensitive regular expressions. A match means the words appeared, not that the behavior was intended. Weight 1-5 drives the triage level only.",
+  "behaviors": [
+    {
+      "id": "direct-threat",
+      "name": "Direct threat of violence",
+      "weight": 5,
+      "description": "States an intent to kill or physically harm the recipient or their family.",
+      "patterns": [
+        "\\b(?:i['’]?ll|i will|we['’]?ll|we will|i['’]?m going to|i am going to|i['’]?m gonna|i am gonna|im gonna|i gonna)\\s+(?:kill|hurt|beat|shoot|stab|strangle|murder)\\s+(?:you|u|your)\\b",
+        "\\byou(?:['’]?re| are)\\s+(?:dead|going to die|gonna die)\\b",
+        "\\b(?:going to|gonna)\\s+(?:kill|shoot|stab)\\s+(?:you|u|your)\\b"
+      ],
+      "attack_types": [
+        "threats",
+        "cyberstalking"
+      ],
+      "legal_note": "Written or electronic threats to kill or injure are addressed by Va. Code § 18.2-60. If you are in danger, call 911 first."
+    },
+    {
+      "id": "conditional-threat",
+      "name": "Conditional threat or ultimatum",
+      "weight": 4,
+      "description": "Ties a harmful consequence to what the recipient does or refuses to do.",
+      "patterns": [
+        "\\b(?:if you|unless you)\\b.{0,60}\\b(?:i['’]?ll|i will)\\s+(?:kill|hurt|post|leak|expose|tell|send|share|make you|ruin|destroy)\\b",
+        "\\bor (?:we|i)(?:['’]?ll| will)\\s+(?:kill|hurt|post|leak|expose|release|publish|tell|send|share|ruin|destroy)\\b",
+        "\\bor else\\b"
+      ],
+      "attack_types": [
+        "threats",
+        "ransomware-extortion"
+      ],
+      "legal_note": "If something of value is demanded, extortion statutes (Va. Code § 18.2-59; 18 U.S.C. § 875(d)) may be relevant."
+    },
+    {
+      "id": "veiled-threat",
+      "name": "Veiled or implied threat",
+      "weight": 3,
+      "description": "Menacing language that stops short of stating the harm.",
+      "patterns": [
+        "\\bwatch your back\\b",
+        "\\byou['’]?ll regret\\b",
+        "\\byou don['’]?t know who you['’]?re (?:messing|dealing) with\\b",
+        "\\bsomething (?:might|could|will) happen to you\\b",
+        "\\bsleep with one eye open\\b",
+        "\\bsee what happens\\b",
+        "\\byou(?:['’]?d)? (?:had )?better be careful\\b"
+      ],
+      "attack_types": [
+        "threats",
+        "cyber-harassment"
+      ],
+      "legal_note": "Implied threats are harder to prosecute than explicit ones. Record exact words and context."
+    },
+    {
+      "id": "permanence-declaration",
+      "name": "Permanence declaration",
+      "weight": 3,
+      "description": "Says the contact will never end or cannot be escaped.",
+      "patterns": [
+        "\\b(?:it|this) (?:won(?:'|’)?t|will not) stop\\b",
+        "\\bi(?:'|’)?ll never stop\\b",
+        "\\bi (?:will|'ll) haunt\\b",
+        "\\bi(?:'|’)?m not going anywhere\\b",
+        "\\byou can(?:'|’)?t (?:escape|hide|run)\\b",
+        "\\bfor the rest of your life\\b"
+      ],
+      "attack_types": [
+        "cyberstalking",
+        "cyber-harassment"
+      ],
+      "legal_note": "Statements of persistence can support a course-of-conduct showing in stalking cases (Va. Code § 18.2-60.3; 18 U.S.C. § 2261A)."
+    },
+    {
+      "id": "surveillance-claim",
+      "name": "Surveillance or tracking claim",
+      "weight": 4,
+      "description": "Says the sender has been watching, tracking or knows where the recipient is.",
+      "patterns": [
+        "\\bi(?:'|’)?ve been (?:watching|tracking|following|monitoring)\\b",
+        "\\bi have been (?:watching|tracking|following|monitoring)\\b",
+        "\\bbeen tracking you\\b",
+        "\\bi know where you (?:live|work|are|stay)\\b",
+        "\\bi see everything you\\b",
+        "\\bi know your (?:address|schedule|job|employer|car)\\b"
+      ],
+      "attack_types": [
+        "cyberstalking",
+        "doxxing",
+        "malware-spyware"
+      ],
+      "legal_note": "Claims of tracking can show intent to cause fear. If the sender knows non-public details, check for account or device compromise."
+    },
+    {
+      "id": "doxxing-threat",
+      "name": "Threat to expose identifying information",
+      "weight": 4,
+      "description": "Threatens to publish an address, name, photos or other private information.",
+      "patterns": [
+        "\\b(?:i['’]?ll|i will|gonna|going to)\\b.{0,25}\\b(?:post|leak|expose|share|release|publish)\\b.{0,50}\\b(?:address|name|number|photos?|info|pics?|nudes?|employer|job)\\b",
+        "\\bdox+(?:ed|ing)?\\b"
+      ],
+      "attack_types": [
+        "doxxing",
+        "ncii",
+        "ransomware-extortion"
+      ],
+      "legal_note": "Publication with intent to harass is covered by Va. Code § 18.2-186.4. A threat alone may be analyzed under threat or extortion statutes."
+    },
+    {
+      "id": "extortion-demand",
+      "name": "Demand for payment or compliance under threat",
+      "weight": 4,
+      "description": "Demands money, images or action and threatens exposure if refused.",
+      "patterns": [
+        "\\b(?:send|pay|give|transfer)\\b.{0,40}\\b(?:or i|else i|otherwise i)\\b",
+        "\\b(?:pay|send)\\b.{0,30}\\b(?:bitcoin|btc|crypto)\\b",
+        "\\b(?:gift ?cards?)\\b.{0,40}\\b(?:or|else)\\b"
+      ],
+      "attack_types": [
+        "ransomware-extortion",
+        "ncii"
+      ],
+      "legal_note": "Obtaining money or a benefit by threat can fall under Va. Code § 18.2-59."
+    },
+    {
+      "id": "coercive-demand",
+      "name": "Coercive contact demand",
+      "weight": 2,
+      "description": "Insists the recipient respond, unblock or comply.",
+      "patterns": [
+        "\\b(?:you (?:need|have|must|better) to|you(?:'|’)?d better) (?:talk|answer|reply|respond|unblock|apologi[sz]e)\\b",
+        "\\bunblock me\\b",
+        "\\banswer me\\b",
+        "\\brespond to me\\b",
+        "\\btalk to me\\b"
+      ],
+      "attack_types": [
+        "cyberstalking",
+        "cyber-harassment"
+      ],
+      "legal_note": "Repeated demands after a clear request to stop are relevant to course-of-conduct statutes."
+    },
+    {
+      "id": "contact-after-block",
+      "name": "Contact after block or new accounts",
+      "weight": 3,
+      "description": "References being blocked, or contacts the recipient from new accounts.",
+      "patterns": [
+        "\\byou blocked me\\b",
+        "\\byou can(?:'|’)?t block me\\b",
+        "\\b(?:new|another|different|second) (?:account|profile|handle)\\b",
+        "\\bi made (?:a )?(?:new|another) account\\b"
+      ],
+      "attack_types": [
+        "alt-account-evasion",
+        "cyberstalking"
+      ],
+      "legal_note": "Persistence after a block supports a pattern. A new account is not itself a crime."
+    },
+    {
+      "id": "entitlement-defiance",
+      "name": "Rules-do-not-apply framing",
+      "weight": 2,
+      "description": "Claims immunity from rules, bans or consequences.",
+      "patterns": [
+        "\\brules don(?:'|’)?t apply to me\\b",
+        "\\bi do what i want\\b",
+        "\\bnobody can stop me\\b",
+        "\\byou can(?:'|’)?t stop me\\b",
+        "\\b(?:you|they) can(?:'|’)?t do anything\\b"
+      ],
+      "attack_types": [
+        "cyber-harassment",
+        "alt-account-evasion"
+      ],
+      "legal_note": "Defiance statements can help show willfulness after warnings."
+    },
+    {
+      "id": "blame-minimizing",
+      "name": "Blame-shifting or minimizing",
+      "weight": 2,
+      "description": "Puts responsibility on the recipient or dismisses the conduct.",
+      "patterns": [
+        "\\byou made me\\b",
+        "\\blook what you made me\\b",
+        "\\bit(?:'|’)?s your fault\\b",
+        "\\byou(?:'|’)?re (?:overreacting|crazy|dramatic)\\b",
+        "\\b(?:just|only) (?:a )?(?:joke|joking|kidding)\\b",
+        "\\bcalm down\\b"
+      ],
+      "attack_types": [
+        "cyber-harassment"
+      ],
+      "legal_note": "Context-dependent and common in ordinary arguments. Weigh with other markers."
+    },
+    {
+      "id": "demeaning-address",
+      "name": "Demeaning or diminutive address",
+      "weight": 1,
+      "description": "Condescending terms of address. Highly context-dependent; low confidence on its own.",
+      "patterns": [
+        "\\blittle (?:boy|girl|man)\\b",
+        "\\bbaby (?:boy|girl)\\b",
+        "\\bsweetie\\b",
+        "\\bsweetheart\\b",
+        "\\bhoney\\b"
+      ],
+      "attack_types": [
+        "cyber-harassment"
+      ],
+      "legal_note": "Not unlawful by itself. Useful only as a repeated stylistic marker across messages."
+    },
+    {
+      "id": "impersonation-claim",
+      "name": "Claiming the recipient's identity",
+      "weight": 2,
+      "description": "States or implies the sender is the recipient or owns their images or history.",
+      "patterns": [
+        "\\bthat(?:'|’)?s me (?:when|in|as)\\b",
+        "\\bi(?:'|’)?m you\\b",
+        "\\bi am you\\b",
+        "\\bthis is me\\b"
+      ],
+      "attack_types": [
+        "identity-theft"
+      ],
+      "legal_note": "Identity statutes usually need an unlawful purpose or a benefit sought (Va. Code § 18.2-186.3; 18 U.S.C. § 1028(a)(7)). Document the purpose."
+    },
+    {
+      "id": "profanity-obscenity",
+      "name": "Profane or vulgar language",
+      "weight": 1,
+      "description": "Profane or obscene words directed at the recipient.",
+      "patterns": [
+        "\\b(?:f+u+c+k\\w*|sh[i1]t\\w*|bitch\\w*|asshole\\w*|bastard\\w*|cunt\\w*|slut\\w*|whore\\w*|dick\\w*)\\b"
+      ],
+      "attack_types": [
+        "cyber-harassment"
+      ],
+      "legal_note": "Va. Code § 18.2-152.7:1 turns on obscene, vulgar or lewd content plus intent to coerce, intimidate or harass."
+    }
+  ]
+}

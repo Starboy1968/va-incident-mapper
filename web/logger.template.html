@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; form-action 'none'; base-uri 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Incident Logger — Evidence Documentation Tool</title>
+<style>
+:root{--u:1.25px;--ff:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif}
+body.mono{--u:1px;--ff:'Courier New',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#070d1a;color:#dce8ff;font-family:var(--ff);font-size:calc(var(--u)*12);line-height:1.5;min-height:100vh}
+::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:#0a1628}::-webkit-scrollbar-thumb{background:#1a3366;border-radius:3px}
+input[type=date]::-webkit-calendar-picker-indicator,input[type=time]::-webkit-calendar-picker-indicator{filter:invert(.6) sepia(1) saturate(2) hue-rotate(180deg);cursor:pointer}
+select option{background:#0a1628;color:#dce8ff}
+textarea,pre,.mono-t{font-family:'Courier New',monospace}
+button{font-family:var(--ff)}
+.hd{background:#08122a;border-bottom:2px solid #1a3366;padding:0 28px;position:sticky;top:0;z-index:100}
+.top{display:flex;align-items:center;gap:14px;padding:14px 0 8px;flex-wrap:wrap}
+.badge{background:#cc2222;color:#fff;font-size:calc(var(--u)*9);font-weight:900;padding:3px 8px;letter-spacing:3px;border-radius:2px}
+.ttl{color:#4a9eff;font-size:calc(var(--u)*20);font-weight:900;letter-spacing:2px}
+.stats{margin-left:auto;display:flex;gap:20px;align-items:center}
+.stat{text-align:center}.stat small{display:block;font-size:calc(var(--u)*9);color:#607090;letter-spacing:2px}.stat b{font-size:calc(var(--u)*15);font-weight:900}
+.nav{display:flex;overflow-x:auto}
+.nav button{background:transparent;border:0;border-bottom:3px solid transparent;color:#607090;padding:9px 22px;cursor:pointer;font-size:calc(var(--u)*11);font-weight:900;letter-spacing:1.5px;transition:all .15s;white-space:nowrap}
+.nav button.on{background:#101e40;border-bottom-color:#4a9eff;color:#4a9eff}
+.body{padding:22px 28px;max-width:1300px;width:100%;margin:0 auto}
+.g-log{display:grid;grid-template-columns:1fr 370px;gap:22px}
+.g-exp{display:grid;grid-template-columns:280px 1fr;gap:22px}
+.g-set{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:900px){.g-log,.g-exp,.g-set{grid-template-columns:1fr}.hd,.body{padding-left:14px;padding-right:14px}.stats{margin-left:0}.g2{grid-template-columns:1fr}}
+.sect{margin-bottom:20px}
+.sl{font-size:calc(var(--u)*9);color:#607090;letter-spacing:2.5px;margin-bottom:8px;font-weight:900;border-bottom:1px solid #1a3366;padding-bottom:5px}
+.lbl{font-size:calc(var(--u)*9);color:#607090;letter-spacing:2px;margin-bottom:5px;font-weight:700}
+.hint{font-size:calc(var(--u)*10);color:#607090;margin-top:4px;line-height:1.6}
+.inp{width:100%;background:#050a14;border:1px solid #1a3366;color:#dce8ff;padding:9px 12px;font-family:'Courier New',monospace;font-size:calc(var(--u)*12);border-radius:3px;outline:none;color-scheme:dark}
+.inp:focus{border-color:#4a9eff}
+select.inp{cursor:pointer;font-family:var(--ff)}
+.btn{background:#0a1a36;border:1px solid #4a9eff;color:#4a9eff;padding:7px 16px;cursor:pointer;font-size:calc(var(--u)*11);font-weight:700;letter-spacing:1px;border-radius:3px;transition:all .15s}
+.btn:hover{background:#0a2250}
+.btn.sm{font-size:calc(var(--u)*11);padding:5px 12px}
+.btn.green{background:#0a2210;border-color:#50c878;color:#50c878}.btn.green:hover{background:#0f3318}
+.btn.red{background:#1a0808;border-color:#cc3333;color:#cc3333}
+.btn.teal{background:#0a2210;border-color:#1a9e6e;color:#1a9e6e}
+.btn.purple{background:#0a1a36;border-color:#b044cc;color:#b044cc}
+.btn.big{padding:12px;font-size:calc(var(--u)*12);font-weight:900;letter-spacing:1.5px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn:focus-visible,.inp:focus-visible,.nav button:focus-visible{outline:2px solid #4a9eff;outline-offset:1px}
+.fbtn{background:transparent;border:1px solid #1a3366;color:#607090;padding:4px 12px;cursor:pointer;font-size:calc(var(--u)*10);border-radius:3px}
+.fbtn.on{background:#0a1e40;border-color:#4a9eff;color:#4a9eff;font-weight:700}
+.fbtn.on.red{border-color:#cc3333;color:#cc3333}
+.wrap8{display:flex;flex-wrap:wrap;gap:8px}
+.chk{display:flex;align-items:center;gap:8px;cursor:pointer;background:#0a1628;border:1px solid #1a3366;padding:8px 12px;border-radius:3px;flex:1;transition:all .15s}
+.chk.on{background:#0a2210;border-color:#50c878}
+.chk span{font-size:calc(var(--u)*11);color:#607090;font-weight:700}.chk.on span{color:#50c878}
+.chk input{accent-color:#50c878;cursor:pointer}
+.hashbox{font-size:calc(var(--u)*9);color:#607090;word-break:break-all;margin-bottom:10px;background:#050a14;padding:6px 9px;border-radius:3px;border:1px solid #0f1e3a}.hashbox span{color:#4a9eff}
+.go{width:100%;padding:15px;font-size:calc(var(--u)*13);font-weight:900;letter-spacing:2px;border:0;border-radius:4px;cursor:pointer;background:linear-gradient(135deg,#cc2222,#8b1010);color:#fff;transition:all .3s;box-shadow:0 0 20px #cc222244}
+.go.ok{background:linear-gradient(135deg,#1a5c2a,#0d3318);box-shadow:0 0 20px #1a5c2a44}
+.side{position:sticky;top:110px;max-height:calc(100vh - 130px);overflow-y:auto;padding-right:4px}
+.fg{margin-bottom:14px}.fgl{font-size:calc(var(--u)*9);letter-spacing:2px;font-weight:900;margin-bottom:5px;padding-bottom:3px}
+.fl{display:flex;align-items:flex-start;gap:7px;cursor:pointer;padding:5px 7px;margin-bottom:3px;border-radius:3px;background:#0a1628;border:1px solid #1a3366;transition:all .15s}
+.fl input{margin-top:2px;cursor:pointer;flex-shrink:0}
+.fl b{display:block;font-size:calc(var(--u)*11);color:#aac0e0;line-height:1.3}.fl small{display:block;font-size:calc(var(--u)*9);color:#607090;margin-top:1px;line-height:1.4}
+.stbox{background:#050a14;border:1px solid #1a3366;border-radius:4px;padding:12px}
+.stbox .t{font-size:calc(var(--u)*9);color:#607090;letter-spacing:2px;margin-bottom:7px}
+.stbox .a{font-size:calc(var(--u)*11);margin-bottom:3px}
+.stbox .rt{color:#607090;font-size:calc(var(--u)*10);margin-top:7px;border-top:1px solid #1a3366;padding-top:7px}
+.sig{background:#150a08;border:1px solid #cc7700;border-radius:4px;padding:9px 14px;display:flex;align-items:center;gap:12px;margin-bottom:6px;flex-wrap:wrap}
+.inc{background:#0a1628;border:1px solid #1a3366;border-left:4px solid #1a3366;border-radius:4px;margin-bottom:8px;overflow:hidden}.inc.fl3{border-left-color:#cc3333}
+.inc .row{padding:11px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;user-select:none}
+.inc .row .n{color:#4a9eff;font-weight:900;font-size:calc(var(--u)*12);min-width:68px}
+.inc .row .d{color:#607090;font-size:calc(var(--u)*11);min-width:110px}
+.inc .row .p{background:#070d1a;border:1px solid #1a3366;color:#4a9eff;padding:2px 7px;font-size:calc(var(--u)*10);border-radius:2px}
+.inc .row .c{color:#aac0e0;font-size:calc(var(--u)*11);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:60px}
+.inc .row .f{color:#cc3333;font-size:calc(var(--u)*10);font-weight:900;white-space:nowrap}
+.inc .det{border-top:1px solid #1a3366;padding:16px}
+.pill{background:#1a0808;border:1px solid #cc3333;color:#ff8888;padding:2px 10px;font-size:calc(var(--u)*10);border-radius:2px}
+pre.pv{background:#050a14;padding:14px;border-radius:4px;font-size:calc(var(--u)*10);line-height:1.8;overflow:auto;color:#c0d4f0;margin:0 0 12px;white-space:pre-wrap;border:1px solid #0f1e3a}
+pre.pv.big{padding:18px;border-color:#1a3366;max-height:calc(100vh - 200px);margin:0}
+.radio{display:flex;align-items:flex-start;gap:10px;cursor:pointer;background:#0a1628;border:1px solid #1a3366;padding:10px 12px;border-radius:3px;margin-bottom:8px;transition:all .15s}
+.radio.on{background:#0a1e40;border-color:#4a9eff}
+.radio b{display:block;font-size:calc(var(--u)*12);color:#aac0e0}.radio.on b{color:#4a9eff}.radio small{display:block;font-size:calc(var(--u)*10);color:#607090;margin-top:2px}
+.row2{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #1a3366;font-size:calc(var(--u)*11)}.row2 span:first-child{color:#607090}.row2 span:last-child{font-weight:700}
+.card{background:#0a1628;border:1px solid #1a3366;padding:9px 12px;border-radius:3px;margin-bottom:7px;display:flex;align-items:center;gap:10px;font-size:calc(var(--u)*11)}
+.aud{background:#0a1628;border:1px solid #1a3366;padding:7px 10px;border-radius:3px;font-size:calc(var(--u)*10)}
+.danger{padding:14px;background:#100808;border:1px solid #cc3333;border-radius:4px}
+.note{background:#1a1408;border-left:3px solid #cc7700;padding:9px 12px;border-radius:3px;font-size:calc(var(--u)*11);margin-bottom:12px;color:#e8d8b8;line-height:1.6}
+.empty{text-align:center;color:#607090;padding:80px;font-size:calc(var(--u)*14)}
+.foot{border-top:1px solid #0f1e3a;color:#607090;font-size:calc(var(--u)*10);padding:14px 28px;text-align:center}
+.foot a{color:#4a9eff}
+.ft{margin-left:8px}
+.lblx{font-size:calc(var(--u)*10);color:#607090;letter-spacing:2px}
+@media print{.hd,.foot{display:none}body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>/* SheetJS 0.18.5 (Apache-2.0), bundled so the page needs no network */
+__XLSX__
+</script>
+<script>/* jsPDF 2.5.1 (MIT), bundled so the page needs no network */
+__JSPDF__
+</script>
+<script>
+"use strict";
+// ─── ALL OF THIS CORE IS THE ORIGINAL INCIDENT LOGGER'S DATA, FLAGS, REPORT FORMATS AND EXPORTS ───
+__CORE__
+
+// ─── SESSION STATE (nothing is saved in the browser; use Save case file) ─────
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const FEEL=["Afraid for my safety","Afraid for my family or someone close to me","Panicked or in shock","Anxious or on edge","Watched or followed","Helpless or trapped","Angry","Humiliated or ashamed","Sad or hopeless","Numb or detached","Alone or isolated","Unable to sleep or focus afterward"];
+const NAV=[{id:"log",icon:"⚡",label:"LOG INCIDENT"},{id:"history",icon:"📋",label:"HISTORY"},{id:"export",icon:"📤",label:"EXPORT"},{id:"settings",icon:"⚙",label:"SETTINGS"}];
+const newForm=()=>({platform:"TikTok",type:"Public Comment",incidentDate:todayStr(),incidentTime:nowTimeStr(),displayName:"",handle:"",userId:"",profileUrl:"",archiveUrl:"",content:"",context:"",feelings:[],feelingsText:"",screenshot:false,recording:false,screenshotHash:"",screenshotFilename:"",screenshotHashing:false,reported:true,reportConfirmation:"",flags:{}});
+const S={incidents:[],stopDate:"",caseInfo:{localCase:"",ic3Number:"",agency:"",detective:""},victimInfo:{name:"",phone:"",email:""},handles:[],auditLog:[],evidenceFiles:[],
+ view:"log",expMode:"full",expanded:null,search:"",fPlatform:"All",fFlag:"All",copied:null,saved:false,lastSave:"",dirty:false,inclContact:false,msg:"",form:newForm()};
+const dirty=()=>{S.dirty=true};
+function logAudit(action,detail){S.auditLog.push({ts:new Date().toISOString(),action,detail});dirty()}
+const pad=n=>"INC-"+String(n).padStart(3,"0");
+const derived=()=>{const platforms=[...new Set(S.incidents.map(i=>i.platform))];
+ const filtered=S.incidents.filter(i=>{const mp=S.fPlatform==="All"||i.platform===S.fPlatform;const mf=S.fFlag==="All"||i.flags?.[S.fFlag];const q=S.search.toLowerCase();const ms=!q||(i.content||"").toLowerCase().includes(q)||(i.handle||"").toLowerCase().includes(q);return mp&&mf&&ms});
+ return{platforms,filtered,flagged:S.incidents.filter(i=>Object.values(i.flags||{}).some(Boolean)).length,postNotice:S.incidents.filter(i=>i.flags?.postNotice).length,activeFlags:ALL_FLAGS.filter(f=>S.incidents.some(i=>i.flags?.[f.key])),clusters:computeClusters(S.incidents)}};
+function evBlock(){if(!S.evidenceFiles.length)return"";return"\n\n"+"═".repeat(60)+"\nEVIDENCE FILES (SHA-256)\n"+"═".repeat(60)+"\n"+S.evidenceFiles.map(f=>`  ${f.name} (${f.bytes} bytes)\n    ${f.sha256||f.note||""}`).join("\n")+"\n"+"─".repeat(60)}
+function getExportText(){let t;if(S.expMode==="ic3")t=formatIC3(S.incidents,S.caseInfo,S.stopDate);else if(S.expMode==="sheriff")t=formatSheriff(S.incidents,S.caseInfo,S.stopDate,S.victimInfo);else t=S.incidents.map(i=>formatEntry(i,S.stopDate,S.caseInfo)).join("\n\n")+"\n\n"+plainLanguageKey();return t+evBlock()}
+const sect=(label,inner)=>`<div class="sect"><div class="sl">${label}</div>${inner}</div>`;
+const lbl=t=>`<div class="lbl">${t}</div>`;
+const inp=(attrs,extra)=>`<input class="inp" ${attrs} ${extra||""}>`;
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
+function header(){const d=derived();const st=(l,v,c)=>`<div class="stat"><small>${l}</small><b style="color:${c}">${esc(v)}</b></div>`;
+ return`<header class="hd"><div class="top"><div class="badge">EVIDENCE</div><div class="ttl">INCIDENT LOGGER</div><div class="stats">${st("TOTAL",S.incidents.length,"#4a9eff")}${st("FLAGGED",d.flagged,"#cc3333")}${st("POST-NOTICE",d.postNotice,"#cc7700")}${st("PLATFORMS",d.platforms.length,"#50c878")}${S.caseInfo.localCase?st("CASE #",S.caseInfo.localCase,"#b044cc"):""}<button class="fbtn ft" data-act="font" title="Switch between the original typewriter font and an easier-to-read font">FONT: ${document.body.classList.contains("mono")?"ORIGINAL":"EASY"}</button></div></div>
+ <div class="nav">${NAV.map(n=>`<button data-view="${n.id}" class="${S.view===n.id?"on":""}">${n.icon} ${n.label}</button>`).join("")}</div></header>`}
+function viewLog(){const f=S.form;
+ const hs=S.handles.length?sect("KNOWN ACCOUNTS — QUICK FILL",`<div class="wrap8">${S.handles.map((h,i)=>`<button class="btn sm" data-act="applyHandle" data-i="${i}">${esc(h.platform)}: ${esc(h.handle||h.displayName)}</button>`).join("")}</div>`):"";
+ const dh=f.incidentDate?new Date(f.incidentDate+"T12:00").toLocaleDateString("en-US",{weekday:"long",year:"numeric",month:"long",day:"numeric"}):"";
+ const left=`${hs}
+ ${sect("INCIDENT DATE &amp; TIME",`<div class="g2"><div>${lbl("DATE OF INCIDENT")}<input class="inp" type="date" data-f="incidentDate" value="${esc(f.incidentDate)}"><div class="hint" id="dh">${esc(dh)}</div></div><div>${lbl("TIME OF INCIDENT")}<input class="inp" type="time" data-f="incidentTime" value="${esc(f.incidentTime)}"><div class="hint" id="th">${f.incidentTime?esc(displayTime(f.incidentTime)):""}</div></div></div>`)}
+ ${sect("PLATFORM &amp; TYPE",`<div class="g2"><div>${lbl("PLATFORM")}<select class="inp" data-f="platform">${PLATFORMS.map(p=>`<option${p===f.platform?" selected":""}>${esc(p)}</option>`).join("")}</select></div><div>${lbl("INCIDENT TYPE")}<select class="inp" data-f="type">${TYPES.map(t=>`<option${t===f.type?" selected":""}>${esc(t)}</option>`).join("")}</select></div></div>`)}
+ ${sect("SUBJECT ACCOUNT",`<div class="g2"><div>${lbl("DISPLAY NAME")}${inp(`data-f="displayName" value="${esc(f.displayName)}" placeholder="Name shown on profile"`)}</div><div>${lbl("USERNAME / @HANDLE")}${inp(`data-f="handle" value="${esc(f.handle)}" placeholder="@handle"`)}</div><div>${lbl("USER ID (NUMERICAL — NEVER CHANGES)")}${inp(`id="f-userId" data-f="userId" value="${esc(f.userId)}" placeholder="Permanent ID — critical for platform subpoenas"`)}</div><div>${lbl("PROFILE URL")}${inp(`data-f="profileUrl" value="${esc(f.profileUrl)}" placeholder="Full URL — auto-extracts user ID"`)}</div><div style="grid-column:1 / -1">${lbl("ARCHIVE LINK (WAYBACK / ARCHIVE.TODAY)")}${inp(`data-f="archiveUrl" value="${esc(f.archiveUrl)}" placeholder="Proves content existed at this URL before it could be edited or deleted"`)}</div></div>`)}
+ ${sect("INCIDENT CONTENT",`${lbl("EXACT VERBATIM CONTENT — DO NOT PARAPHRASE")}<textarea id="f-content" class="inp" data-f="content" style="height:90px;resize:vertical" placeholder="Paste or type exactly what was said. Word for word.">${esc(f.content)}</textarea><div style="margin-top:10px">${lbl("CONTEXT (WHOSE POST / WHAT VIDEO / WHAT THREAD)")}${inp(`data-f="context" value="${esc(f.context)}" placeholder="e.g. Comment on my video about [topic] / Reply under [username]'s post"`)}</div>`)}
+ ${sect("HOW YOU FELT AT THE TIME",`<div class="hint" style="margin:0 0 8px">Tick any that fit. Stalking and harassment laws often ask whether the conduct caused real fear or distress, so your own account can matter. Optional.</div><div class="wrap8">${FEEL.map((x,i)=>`<label class="chk${f.feelings.includes(x)?" on":""}" style="flex:none"><input type="checkbox" data-feel="${i}"${f.feelings.includes(x)?" checked":""}><span>${esc(x)}</span></label>`).join("")}</div><div style="margin-top:10px">${lbl("IN YOUR OWN WORDS")}<textarea class="inp" data-f="feelingsText" style="height:70px;resize:vertical" placeholder="What went through your mind? What did you feel in your body? What did you do next?">${esc(f.feelingsText)}</textarea></div>`)}
+ ${sect("EVIDENCE CAPTURED",`<div style="display:flex;gap:10px;margin-bottom:10px">${[["recording","Screen Recording"],["reported","Reported to Platform"]].map(([k,l])=>`<label class="chk${f[k]?" on":""}"><input type="checkbox" data-fb="${k}"${f[k]?" checked":""}><span>${l}</span></label>`).join("")}</div>
+  ${lbl("SCREENSHOT — HASH FOR INTEGRITY (FILE ITSELF IS NOT STORED)")}<label class="chk${f.screenshot?" on":""}" style="margin-bottom:10px;flex:none;width:100%"><input type="file" accept="image/*" data-file="shot" style="display:none"><span>${f.screenshotHashing?"HASHING...":f.screenshot?"✓ "+esc(f.screenshotFilename):"CLICK TO SELECT SCREENSHOT FILE"}</span></label>
+  ${f.screenshotHash?`<div class="hashbox">SHA-256: <span>${esc(f.screenshotHash)}</span></div>`:""}
+  ${f.reported?`<div>${lbl("REPORT CONFIRMATION # (IF PROVIDED)")}${inp(`data-f="reportConfirmation" value="${esc(f.reportConfirmation)}" placeholder="Platform confirmation number"`)}</div>`:""}`)}
+ <button class="go${S.saved?" ok":""}" data-act="submit">${S.saved?`✓ ${pad(S.incidents.length)} LOGGED`:`⚡ LOG INCIDENT${S.incidents.length>0?` — ${pad(S.incidents.length+1)}`:""}`}</button>`;
+ return`<div class="g-log"><div>${left}</div><div><div class="side" id="side">${sideHtml()}</div></div></div>`}
+function sideHtml(){const f=S.form;
+ const groups=FLAG_GROUPS.map(g=>`<div class="fg"><div class="fgl" style="color:${g.color};border-bottom:1px solid ${g.color}33">${g.group}</div>${g.flags.map(fl=>{const on=!!f.flags[fl.key];return`<label class="fl" style="background:${on?g.color+"18":"#0a1628"};border-color:${on?g.color:"#1a3366"}"><input type="checkbox" data-flag="${fl.key}" style="accent-color:${g.color}"${on?" checked":""}><div><b style="color:${on?g.color:"#aac0e0"}">${esc(fl.label)}</b><small>${esc(fl.statute)}</small></div></label>`}).join("")}</div>`).join("");
+ const show=f.content||Object.values(f.flags).some(Boolean);
+ const box=show?`<div class="stbox"><div class="t">STATUTES THAT WILL APPLY</div>${(STATUTES[f.type]||[]).map(s=>`<div class="a" style="color:#4a9eff">→ ${esc(s)}</div>`).join("")}${ALL_FLAGS.filter(x=>f.flags[x.key]).map(x=>`<div class="a" style="color:#cc3333">→ ${esc(x.statute)}</div>`).join("")}<div class="rt">Running total: <span style="color:#4a9eff">${S.incidents.length+1}</span>${S.stopDate?`th contact since stop request on ${esc(S.stopDate)}`:" documented incidents"}</div></div>`:"";
+ return sect("LEGAL FLAGS",groups)+box}
+function clusterHtml(c){return`<div class="sig"><span style="color:#cc7700;font-weight:900;font-size:calc(var(--u)*10);letter-spacing:1px">⚠ SIGNAL</span><span style="color:#dce8ff;font-size:calc(var(--u)*11)">${c.incidents.length} contacts, ${shortDate(new Date(c.start).toISOString().split("T")[0])} – ${shortDate(new Date(c.end).toISOString().split("T")[0])}</span><span style="color:#607090;font-size:calc(var(--u)*10);margin-left:auto">${esc([...new Set(c.incidents.map(x=>x.platform))].join(", "))}</span></div>`}
+function listHtml(){const d=derived();
+ if(!d.filtered.length)return`<div class="empty">${S.incidents.length===0?"No incidents logged yet.":"No incidents match filters."}</div>`;
+ return[...d.filtered].reverse().map(inc=>{const af=ALL_FLAGS.filter(f=>inc.flags?.[f.key]),ex=S.expanded===inc.id,txt=ex?formatEntry(inc,S.stopDate,S.caseInfo):"";
+  return`<div class="inc${af.length?" fl3":""}"><div class="row" data-act="toggle" data-id="${inc.id}"><span class="n">${pad(inc.number)}</span><span class="d">${esc(shortDate(inc.incidentDate)||inc.loggedDate)} ${inc.incidentTime?esc(displayTime(inc.incidentTime)):""}</span><span class="p">${esc(inc.platform)}</span><span class="c">${inc.content?`"${esc(inc.content.substring(0,80))}${inc.content.length>80?"...":""}"`:"[No content]"}</span>${af.length?`<span class="f">⚠ ${af.length} FLAG${af.length>1?"S":""}</span>`:""}<span style="color:#607090">${ex?"▲":"▼"}</span></div>
+  ${ex?`<div class="det">${af.length?`<div class="wrap8" style="gap:6px;margin-bottom:12px">${af.map(f=>`<span class="pill">${esc(f.label)}</span>`).join("")}</div>`:""}<pre class="pv">${esc(txt)}</pre><div style="display:flex;gap:8px"><button class="btn${S.copied===inc.id?" green":""}" data-act="copyInc" data-id="${inc.id}">${S.copied===inc.id?"✓ COPIED":"COPY"}</button><button class="btn green" data-act="dlInc" data-id="${inc.id}">DOWNLOAD</button><button class="btn red" data-act="del" data-id="${inc.id}" style="margin-left:auto">DELETE</button></div></div>`:""}</div>`}).join("")}
+function viewHistory(){const d=derived();
+ const cl=d.clusters.length?`<div style="margin-bottom:18px"><div class="sl">PATTERN ANALYSIS — SIGNAL VS NOISE</div><div class="hint" style="margin-bottom:10px">Isolated incidents are noise. ${d.clusters.length} window${d.clusters.length>1?"s":""} below show 3+ contacts within 7 days — that clustering is the pattern evidence that supports "course of conduct" under § 2261A.</div>${d.clusters.map(clusterHtml).join("")}</div>`:"";
+ return`<div>${cl}<div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;align-items:center"><input class="inp" id="search" value="${esc(S.search)}" placeholder="Search content or handle..." style="width:200px;padding:5px 10px"><div class="lblx" style="margin-left:8px">PLATFORM:</div>${["All",...d.platforms].map(p=>`<button class="fbtn${S.fPlatform===p?" on":""}" data-act="fPlat" data-v="${esc(p)}">${esc(p)}</button>`).join("")}${d.activeFlags.length?`<div class="lblx" style="margin-left:8px">FLAG:</div><button class="fbtn${S.fFlag==="All"?" on":""}" data-act="fFlag" data-v="All">All</button>${d.activeFlags.map(f=>`<button class="fbtn red${S.fFlag===f.key?" on":""}" data-act="fFlag" data-v="${f.key}">${esc(f.label.split("/")[0].trim())}</button>`).join("")}`:""}<div id="cnt" style="margin-left:auto;font-size:calc(var(--u)*11);color:#607090">${d.filtered.length} of ${S.incidents.length}</div></div><div id="list">${listHtml()}</div></div>`}
+function viewExport(){const d=derived(),none=S.incidents.length===0;
+ const modes=[["full","Full Incident Log","All entries — evidence binder"],["ic3","IC3 Complaint Narrative","Paste directly into ic3.gov Details field"],["sheriff","Law Enforcement Report","Formatted update for detective / sheriff"]];
+ return`<div class="g-exp"><div>${sect("EXPORT FORMAT",modes.map(m=>`<label class="radio${S.expMode===m[0]?" on":""}"><input type="radio" name="xm" data-xm="${m[0]}"${S.expMode===m[0]?" checked":""} style="margin-top:3px;accent-color:#4a9eff"><div><b>${m[1]}</b><small>${m[2]}</small></div></label>`).join(""))}
+ ${sect("STATS",[["Total",S.incidents.length,"#4a9eff"],["Flagged",d.flagged,"#cc3333"],["Post-Notice",d.postNotice,"#cc7700"],["Platforms",d.platforms.join(",")||"—","#50c878"]].map(([l,v,c])=>`<div class="row2"><span>${l}</span><span style="color:${c}">${esc(v)}</span></div>`).join(""))}
+ <div style="display:flex;flex-direction:column;gap:8px"><button class="btn big${S.copied==="export"?" green":""}" data-act="copyExp">${S.copied==="export"?"✓ COPIED":"COPY TO CLIPBOARD"}</button><button class="btn big green" data-act="dlTxt">⬇ DOWNLOAD AS .TXT FILE</button><button class="btn big teal" data-act="dlXlsx"${none?" disabled":""}>⬇ DOWNLOAD AS .XLSX FILE</button><button class="btn big purple" data-act="dlPdf"${none?" disabled":""}>⬇ DOWNLOAD AS .PDF FILE</button></div></div>
+ <div><div class="lblx" style="margin-bottom:8px">PREVIEW</div><pre class="pv big">${none?"No incidents logged yet.":esc(getExportText())}</pre></div></div>`}
+function viewSettings(){
+ const ci=[["localCase","Local Law Enforcement Case #","Sheriff / Police case number"],["ic3Number","IC3 Complaint #","After filing at ic3.gov"],["agency","Filing Agency","e.g. Shenandoah County Sheriff"],["detective","Detective / Officer Name","Your point of contact"]];
+ const vi=[["name","Your Full Name","For law enforcement reports"],["phone","Phone","Contact for investigators"],["email","Email","Contact for investigators"]];
+ const isoStop=/^\d{4}-\d{2}-\d{2}$/.test(S.stopDate)?S.stopDate:"";
+ return`<div class="g-set"><div>${sect("CASE INFORMATION",ci.map(([k,l,ph])=>`<div style="margin-bottom:12px">${lbl(l)}${inp(`data-ci="${k}" value="${esc(S.caseInfo[k]||"")}" placeholder="${ph}"`)}</div>`).join(""))}
+ ${sect("YOUR INFORMATION (FOR EXPORT HEADERS)",vi.map(([k,l,ph])=>`<div style="margin-bottom:12px">${lbl(l)}${inp(`data-vi="${k}" value="${esc(S.victimInfo[k]||"")}" placeholder="${ph}"`)}</div>`).join("")+`<div class="hint">Used in the law enforcement report header only. Never saved in this browser.</div>`)}</div>
+ <div>${sect("STOP REQUEST DATE",`${lbl("DATE YOU TOLD THE PERPETRATOR TO STOP")}<input class="inp" type="date" id="stopIso" value="${esc(isoStop)}"><div style="margin-top:8px">${lbl("OR TYPE MANUALLY")}${inp(`id="stopText" value="${esc(S.stopDate)}" placeholder="e.g. January 15, 2026"`)}</div><div id="stopSet" style="font-size:calc(var(--u)*11);color:#4a9eff;margin-top:6px">${S.stopDate?"Set to: "+esc(S.stopDate):""}</div><div class="hint" style="margin-top:6px">Appears in every Running Total line — establishes post-notice willfulness for § 2261A.</div>`)}
+ ${sect("SAVED ACCOUNTS",(S.handles.length===0?`<div style="color:#607090;font-size:calc(var(--u)*12);margin-bottom:12px">Remembered for this session when you log a new @handle.</div>`:"")+S.handles.map((h,i)=>`<div class="card"><span style="color:#4a9eff;min-width:70px">${esc(h.platform)}</span><span style="color:#dce8ff">${esc(h.handle||h.displayName)}</span>${h.userId?`<span style="color:#607090;font-size:calc(var(--u)*10)">ID:${esc(h.userId)}</span>`:""}<button class="btn red" data-act="rmHandle" data-i="${i}" style="margin-left:auto;padding:3px 9px;font-size:calc(var(--u)*10)">REMOVE</button></div>`).join(""))}
+ ${sect("CASE FILE",`<div class="note"><strong>Nothing is saved in this browser.</strong> Your case lives on this page only until you close or reload it. Save a case file before you leave, and open it later to continue. You choose where the file goes.</div>
+  <button class="btn green" data-act="saveFile" style="width:100%;padding:10px">⬇ SAVE CASE FILE (.JSON)</button>
+  <label class="chk${S.inclContact?" on":""}" style="margin-top:8px;flex:none;width:100%"><input type="checkbox" data-incl="1"${S.inclContact?" checked":""}><span>Include my name, phone and email in the case file (off by default)</span></label>
+  <button class="btn" data-act="openFile" style="width:100%;padding:10px;margin-top:8px">⬆ OPEN CASE FILE (.JSON)</button><input type="file" id="openf" accept=".json,application/json" style="display:none">
+  <div class="hint" style="margin-top:6px">Opens a case file from this tool, a backup from the earlier Incident Logger, or a file from the guided form (<a href="intake.html" style="color:#4a9eff">intake.html</a>).</div>
+  <div style="font-size:calc(var(--u)*10);color:${S.lastSave?"#50c878":"#cc7700"};margin-top:8px">${S.lastSave?"Last saved: "+esc(new Date(S.lastSave).toLocaleString()):"Not saved yet."}</div>${S.msg?`<div class="hint" style="color:#e8d8b8">${esc(S.msg)}</div>`:""}`)}
+ ${sect("AUDIT LOG",(S.auditLog.length===0?`<div style="color:#607090;font-size:calc(var(--u)*12);margin-bottom:12px">No actions recorded yet.</div>`:"")+`<div style="max-height:220px;overflow-y:auto;display:flex;flex-direction:column;gap:5px">${[...S.auditLog].reverse().map(a=>`<div class="aud"><span style="color:${a.action==="DELETE"||a.action==="CLEAR_ALL"?"#cc3333":"#50c878"};font-weight:900;margin-right:8px">${esc(a.action)}</span><span style="color:#aac0e0">${esc(a.detail)}</span><div style="color:#607090;margin-top:2px">${esc(new Date(a.ts).toLocaleString())}</div></div>`).join("")}</div>`)}
+ <div class="danger"><div style="font-size:calc(var(--u)*10);color:#cc3333;font-weight:900;letter-spacing:2px;margin-bottom:8px">DANGER ZONE</div><button class="btn red" data-act="clearAll">CLEAR ALL INCIDENTS</button></div></div></div>`}
+function render(){const keep=window.scrollY,side=$("side")?$("side").scrollTop:0;
+ $("root").innerHTML=header()+`<div class="body">${S.view==="log"?viewLog():S.view==="history"?viewHistory():S.view==="export"?viewExport():viewSettings()}</div><div class="foot">In danger right now? Call 911. This tool organizes records; it is not legal advice. Nothing you type leaves this page. <a href="intake.html">Open the guided form</a></div>`;
+ if($("side"))$("side").scrollTop=side;window.scrollTo(0,keep)}
+function updateHeader(){const h=document.querySelector('header.hd');if(h)h.outerHTML=header()}
+function renderSide(){const el=$("side");if(!el)return;const t=el.scrollTop;el.innerHTML=sideHtml();el.scrollTop=t}
+function toast(k){S.copied=k;render();setTimeout(()=>{S.copied=null;render()},2000)}
+
+// ─── ACTIONS ─────────────────────────────────────────────────────────────────
+function copyText(text,key){const done=()=>toast(key);
+ (navigator.clipboard?navigator.clipboard.writeText(text):Promise.reject()).then(done).catch(()=>{const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand("copy")}catch(e){}document.body.removeChild(ta);done()})}
+function submit(){const f=S.form,d=new Date();
+ const inc={...f,flags:{...f.flags},feelings:[...f.feelings],number:S.incidents.length+1,runningTotal:S.incidents.length+1,loggedDate:d.toLocaleDateString("en-US",{year:"numeric",month:"2-digit",day:"2-digit"}),loggedTime:d.toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit",hour12:true}),id:Date.now()};
+ delete inc.screenshotHashing;
+ if(f.handle&&!S.handles.find(h=>h.handle===f.handle))S.handles.push({displayName:f.displayName,handle:f.handle,userId:f.userId,profileUrl:f.profileUrl,platform:f.platform});
+ S.incidents.push(inc);logAudit("CREATE",`Logged ${pad(inc.number)} (${inc.platform} / ${inc.type})`);
+ S.saved=true;setTimeout(()=>{S.saved=false;if(S.view==="log")render()},2500);
+ const keepPlat={platform:f.platform,type:f.type,displayName:f.displayName,handle:f.handle,userId:f.userId,profileUrl:f.profileUrl};
+ S.form={...newForm(),...keepPlat};render();setTimeout(()=>{const c=$("f-content");if(c)c.focus()},100)}
+function delInc(id){if(!window.confirm("Delete this incident? Cannot be undone."))return;const t=S.incidents.find(i=>i.id===id);
+ S.incidents=S.incidents.filter(i=>i.id!==id).map((inc,idx)=>({...inc,number:idx+1,runningTotal:idx+1}));logAudit("DELETE",`Deleted ${pad(t&&t.number)} (${t&&t.platform} / ${t&&t.type})`);S.expanded=null;render()}
+async function onShot(file){if(!file)return;S.form.screenshotHashing=true;render();
+ try{const h=await hashFile(file);Object.assign(S.form,{screenshot:true,screenshotHash:h,screenshotFilename:file.name,screenshotHashing:false})}catch(e){S.form.screenshotHashing=false}render()}
+function saveFile(){const p={format:"va-incident-logger/1",incidents:S.incidents,stopDate:S.stopDate,caseInfo:S.caseInfo,victimInfo:S.inclContact?S.victimInfo:{},handles:S.handles,auditLog:S.auditLog,evidenceFiles:S.evidenceFiles,exportedAt:new Date().toISOString()};
+ downloadTxt(JSON.stringify(p,null,2),`incident_logger_case_${todayStr()}.json`);S.lastSave=p.exportedAt;S.dirty=false;S.msg="";render()}
+const FLAGMAP={"direct-threat":["explicitThreat"],"conditional-threat":["impliedThreat"],"veiled-threat":["impliedThreat"],"extortion-demand":["impliedThreat"],"surveillance-claim":["surveillance"],"doxxing-threat":["doxxThreat"],"contact-after-block":["postBlock"],"permanence-declaration":["permanence"],"entitlement-defiance":["entitlement"],"blame-minimizing":["darvo"],"impersonation-claim":["impersonation"]};
+function fromIntake(raw){const iso=t=>/^\d{4}-\d\d-\d\d/.test(t||"")?String(t).slice(0,10):"";
+ const plat=PLATFORMS.find(p=>p.toLowerCase()===String(raw.platform||"").trim().toLowerCase())||(raw.platform?"Other":"Other");
+ const ms=(raw.messages&&raw.messages.length)?raw.messages:[{account:(raw.accounts||[])[0]||"",at:"",text:raw.summary||"",flags:[]}];
+ const rep=(raw.actions_taken||[]).some(a=>/reported it to the platform/i.test(a));
+ const inc=ms.map((m,i)=>{const flags={};(m.flags||[]).forEach(id=>(FLAGMAP[id]||[]).forEach(k=>flags[k]=true));
+  if(raw.told_to_stop==="yes"&&raw.blocked_on&&iso(m.at)&&iso(m.at)>iso(raw.blocked_on))flags.postNotice=true;
+  return{...newForm(),platform:plat,type:"DM / Message Attempt",incidentDate:iso(m.at)||iso(raw.occurred_first)||todayStr(),incidentTime:"",handle:m.account&&m.account!=="unknown"?m.account:"",content:m.text||"",context:raw.summary||"",feelings:[...(raw.feelings||[])],feelingsText:raw.feelings_text||"",reported:rep,flags,
+   number:i+1,runningTotal:i+1,loggedDate:new Date().toLocaleDateString("en-US",{year:"numeric",month:"2-digit",day:"2-digit"}),loggedTime:"",id:Date.now()+i,screenshotHashing:undefined}});
+ return{incidents:inc,stopDate:raw.told_to_stop==="yes"&&iso(raw.blocked_on)?longDate(raw.blocked_on):"",caseInfo:{localCase:(raw.case||{}).local_case||"",ic3Number:(raw.case||{}).ic3||"",agency:(raw.case||{}).agency||"",detective:(raw.case||{}).officer||""},victimInfo:raw.reporter&&raw.reporter.name?{name:raw.reporter.name||"",phone:raw.reporter.phone||"",email:raw.reporter.email||""}:null,evidenceFiles:raw.evidence_files||[]}}
+function openFile(file){if(!file)return;const rd=new FileReader();rd.onload=()=>{let raw;try{raw=JSON.parse(rd.result)}catch(e){S.msg="That file is not valid JSON.";render();return}
+  let next;if(raw&&raw.schema==="va-incident-mapper-intake/1")next=fromIntake(raw);else if(raw&&Array.isArray(raw.incidents))next={incidents:raw.incidents,stopDate:raw.stopDate||"",caseInfo:{localCase:"",ic3Number:"",agency:"",detective:"",...(raw.caseInfo||{})},victimInfo:raw.victimInfo&&raw.victimInfo.name?raw.victimInfo:null,evidenceFiles:raw.evidenceFiles||[],handles:raw.handles,auditLog:raw.auditLog};
+  else{S.msg="This file is not a case file this tool recognizes.";render();return}
+  if(S.incidents.length&&!window.confirm("Replace the case currently open on this page?"))return;
+  S.incidents=next.incidents.map((i,n)=>({...i,number:n+1,runningTotal:n+1}));S.stopDate=next.stopDate;S.caseInfo=next.caseInfo;if(next.victimInfo)S.victimInfo=next.victimInfo;S.evidenceFiles=next.evidenceFiles||[];S.handles=next.handles||[];S.auditLog=next.auditLog||[];
+  if(!next.handles)S.incidents.forEach(i=>{if(i.handle&&!S.handles.find(h=>h.handle===i.handle))S.handles.push({displayName:i.displayName||"",handle:i.handle,userId:i.userId||"",profileUrl:i.profileUrl||"",platform:i.platform})});
+  logAudit("OPEN_FILE",`Opened ${file.name} (${S.incidents.length} incident${S.incidents.length===1?"":"s"})`);S.msg=`Opened ${S.incidents.length} incident${S.incidents.length===1?"":"s"}.`;S.view="history";S.expanded=null;render()};rd.readAsText(file)}
+
+// ─── EVENTS (delegated; typing never re-renders the page, so focus is kept) ──
+const R=$("root");
+R.addEventListener("input",e=>{const t=e.target;if(t.tagName==="SELECT"||t.type==="checkbox"||t.type==="radio"||t.type==="file")return;dirty();
+ if(t.dataset.f){const k=t.dataset.f;S.form[k]=t.value;
+  if(k==="profileUrl"){const m=t.value.match(/user_id=(\d+)/);if(m&&!S.form.userId){S.form.userId=m[1];const u=$("f-userId");if(u)u.value=m[1]}}
+  if(k==="incidentDate"&&$("dh"))$("dh").textContent=t.value?new Date(t.value+"T12:00").toLocaleDateString("en-US",{weekday:"long",year:"numeric",month:"long",day:"numeric"}):"";
+  if(k==="incidentTime"&&$("th"))$("th").textContent=t.value?displayTime(t.value):"";
+  if(k==="content")renderSide();}
+ else if(t.dataset.ci){S.caseInfo[t.dataset.ci]=t.value;if(t.dataset.ci==="localCase")updateHeader()}
+ else if(t.dataset.vi){S.victimInfo[t.dataset.vi]=t.value}
+ else if(t.id==="search"){S.search=t.value;$("list").innerHTML=listHtml();$("cnt").textContent=`${derived().filtered.length} of ${S.incidents.length}`}
+ else if(t.id==="stopIso"){S.stopDate=t.value?longDate(t.value):"";$("stopText").value=S.stopDate;$("stopSet").textContent=S.stopDate?"Set to: "+S.stopDate:""}
+ else if(t.id==="stopText"){S.stopDate=t.value;$("stopSet").textContent=S.stopDate?"Set to: "+S.stopDate:""}});
+R.addEventListener("change",e=>{const t=e.target;
+ if(t.dataset.f&&t.tagName==="SELECT"){S.form[t.dataset.f]=t.value;dirty();if(t.dataset.f==="type")renderSide()}
+ else if(t.dataset.flag){S.form.flags[t.dataset.flag]=t.checked;dirty();render()}
+ else if(t.dataset.fb){S.form[t.dataset.fb]=t.checked;dirty();render()}
+ else if(t.dataset.feel!==undefined){const x=FEEL[+t.dataset.feel],a=S.form.feelings;t.checked?a.includes(x)||a.push(x):S.form.feelings=a.filter(y=>y!==x);dirty();render()}
+ else if(t.dataset.xm){S.expMode=t.dataset.xm;render()}
+ else if(t.dataset.incl){S.inclContact=t.checked;render()}
+ else if(t.dataset.file==="shot"){onShot(t.files&&t.files[0])}
+ else if(t.id==="openf"){openFile(t.files&&t.files[0])}
+ });
+R.addEventListener("click",e=>{const v=e.target.closest("[data-view]");if(v){S.view=v.dataset.view;render();window.scrollTo(0,0);return}
+ const b=e.target.closest("[data-act]");if(!b)return;const a=b.dataset.act,id=+b.dataset.id;
+ if(a==="submit")submit();
+ else if(a==="font"){document.body.classList.toggle("mono");render()}
+ else if(a==="applyHandle"){const h=S.handles[+b.dataset.i];Object.assign(S.form,{displayName:h.displayName||S.form.displayName,handle:h.handle||S.form.handle,userId:h.userId||S.form.userId,profileUrl:h.profileUrl||S.form.profileUrl,platform:h.platform||S.form.platform});render()}
+ else if(a==="toggle"){S.expanded=S.expanded===id?null:id;$("list").innerHTML=listHtml()}
+ else if(a==="copyInc"){const inc=S.incidents.find(i=>i.id===id);copyText(formatEntry(inc,S.stopDate,S.caseInfo),id)}
+ else if(a==="dlInc"){const inc=S.incidents.find(i=>i.id===id);downloadTxt(formatEntry(inc,S.stopDate,S.caseInfo),pad(inc.number)+".txt")}
+ else if(a==="del")delInc(id);
+ else if(a==="fPlat"){S.fPlatform=b.dataset.v;render()}
+ else if(a==="fFlag"){S.fFlag=b.dataset.v;render()}
+ else if(a==="copyExp")copyText(getExportText(),"export");
+ else if(a==="dlTxt"){const n={full:"incident_log",ic3:"ic3_narrative",sheriff:"law_enforcement_report"};downloadTxt(getExportText(),`${n[S.expMode]}_${todayStr()}.txt`)}
+ else if(a==="dlXlsx")downloadXlsx(S.incidents,S.stopDate,S.caseInfo,`incident_log_${todayStr()}.xlsx`);
+ else if(a==="dlPdf"){const n={full:"incident_log",ic3:"ic3_narrative",sheriff:"law_enforcement_report"};downloadPdf(getExportText(),`${n[S.expMode]}_${todayStr()}.pdf`)}
+ else if(a==="rmHandle"){S.handles.splice(+b.dataset.i,1);dirty();render()}
+ else if(a==="saveFile")saveFile();
+ else if(a==="openFile")$("openf").click();
+ else if(a==="clearAll"){if(window.confirm("Delete ALL incidents? Cannot be undone.")){S.incidents=[];S.evidenceFiles=[];logAudit("CLEAR_ALL","Deleted all incidents");render()}}});
+window.addEventListener("beforeunload",e=>{if(S.dirty&&(S.incidents.length||S.form.content)){e.preventDefault();e.returnValue=""}});
+render();
+window.__logger={S,formatEntry,formatIC3,formatSheriff,fromIntake,getExportText};
+</script>
+</body>
+</html>

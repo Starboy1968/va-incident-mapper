@@ -1,0 +1,730 @@
+{
+  "attacks": [
+    {
+      "id": "unauthorized-access",
+      "name": "Unauthorized account or system access",
+      "description": "Someone logs into an account, device or system they have no right to use (credential stuffing, guessed or stolen passwords, session hijacking).",
+      "keywords": [
+        "unauthorized login",
+        "account takeover",
+        "hacked",
+        "password reset",
+        "logged in without",
+        "credential",
+        "session hijack",
+        "unrecognized device"
+      ],
+      "statutes": [
+        {
+          "id": "va-18.2-152.4",
+          "strength": "primary"
+        },
+        {
+          "id": "va-18.2-152.5",
+          "strength": "primary"
+        },
+        {
+          "id": "va-18.2-152.3",
+          "strength": "possible"
+        },
+        {
+          "id": "va-18.2-152.6",
+          "strength": "possible"
+        },
+        {
+          "id": "us-18-1030",
+          "strength": "primary"
+        },
+        {
+          "id": "us-18-2701",
+          "strength": "possible"
+        },
+        {
+          "id": "va-18.2-152.12",
+          "strength": "civil"
+        }
+      ],
+      "document": [
+        "Date and time of each access, with time zone",
+        "Login alerts, IP addresses and device names shown by the provider",
+        "What data was viewed, changed or deleted",
+        "Proof you did not authorize the access",
+        "Any financial or other loss"
+      ],
+      "report_to": [
+        "Platform security team",
+        "Local police non-emergency line",
+        "FBI IC3 (ic3.gov)",
+        "Virginia State Police"
+      ],
+      "caveats": [
+        "Statutes require lack of authorization. A person who had your password voluntarily at the time may raise authorization as a defense."
+      ]
+    },
+    {
+      "id": "phishing",
+      "name": "Phishing and social engineering",
+      "description": "Deceptive emails, texts, calls or sites that trick someone into giving up credentials, money or personal information.",
+      "keywords": [
+        "phishing",
+        "fake login",
+        "spoofed email",
+        "smishing",
+        "vishing",
+        "impersonating support",
+        "gift card",
+        "wire transfer request",
+        "business email compromise",
+        "bec"
+      ],
+      "statutes": [
+        {
+          "id": "va-18.2-152.5:1",
+          "strength": "primary"
+        },
+        {
+          "id": "va-18.2-186.3",
+          "strength": "primary"
+        },
+        {
+          "id": "va-18.2-152.3",
+          "strength": "possible"
+        },
+        {
+          "id": "va-18.2-152.3:1",
+          "strength": "possible"
+        },
+        {
+          "id": "us-18-1343",
+          "strength": "primary"
+        },
+        {
+          "id": "us-18-1028",
+          "strength": "possible"
+        },
+        {
+          "id": "us-18-1030",
+          "strength": "possible"
+        }
+      ],
+      "document": [
+        "Full message with headers (not a screenshot alone)",
+        "Links and domains used, copied as text, never clicked",
+        "What was disclosed or paid, with timestamps",
+        "Bank, card or wire records",
+        "Sender address, phone number or handle"
+      ],
+      "report_to": [
+        "FBI IC3 (ic3.gov)",
+        "Your bank or card issuer immediately",
+        "FTC (reportfraud.ftc.gov)",
+        "Virginia Attorney General consumer protection"
+      ],
+      "caveats": [
+        "If money moved, contact the bank first; recall windows are short."
+      ]
+    },
+    {
+      "id": "malware-spyware",
+      "name": "Malware, spyware or keylogger",
+      "description": "Software installed without consent that records keystrokes, steals data, or damages or controls a device.",
+      "keywords": [
+        "malware",
+        "spyware",
+        "stalkerware",
+        "keylogger",
+        "trojan",
+        "rat",
+        "remote access",
+        "virus",
+        "infected",
+        "monitoring app"
+      ],
+      "statutes": [
+        {
+          "id": "va-18.2-152.4",
+          "strength": "primary"
+        },
+        {
+          "id": "va-18.2-152.5",
+          "strength": "possible"
+        },
+        {
+          "id": "us-18-1030",
+          "strength": "primary"
+        },
+        {
+          "id": "us-18-2511",
+          "strength": "primary"
+        },
+        {
+          "id": "us-18-2701",
+          "strength": "possible"
+        },
+        {
+          "id": "va-18.2-152.12",
+          "strength": "civil"
+        }
+      ],
+      "document": [
+        "Name, hash or path of the file or app",
+        "How and when it likely arrived",
+        "Antivirus or forensic scan output",
+        "Behavior observed (what it captured or changed)",
+        "A preserved disk or backup image before cleanup"
+      ],
+      "report_to": [
+        "FBI IC3 (ic3.gov)",
+        "Local police",
+        "CISA (cisa.gov/report)"
+      ],
+      "caveats": [
+        "Preserve the device image before wiping. Cleaning the device first can destroy evidence."
+      ]
+    },
+    {
+      "id": "ransomware-extortion",
+      "name": "Ransomware or cyber extortion",
+      "description": "Data is encrypted, stolen or threatened with release unless payment is made.",
+      "keywords": [
+        "ransomware",
+        "ransom",
+        "encrypted files",
+        "pay or",
+        "bitcoin demand",
+        "sextortion",
+        "threatened to leak",
+        "extortion",
+        "decrypt"
+      ],
+      "statutes": [
+        {
+          "id": "va-18.2-59",
+          "strength": "primary"
+        },
+        {
+          "id": "va-18.2-152.4",
+          "strength": "primary"
+        },
+        {
+          "id": "us-18-1030",
+          "strength": "primary"
+        },
+        {
+          "id": "us-18-875",
+          "strength": "primary"
+        },
+        {
+          "id": "va-18.2-186.6",
+          "strength": "possible"
+        },
+        {
+          "id": "va-18.2-152.12",
+          "strength": "civil"
+        }
+      ],
+      "document": [
+        "Ransom note, unaltered",
+        "Wallet addresses and payment demands",
+        "Timeline of encryption or exfiltration",
+        "Systems and data affected",
+        "Whether personal information of others was taken"
+      ],
+      "report_to": [
+        "FBI field office or IC3 (ic3.gov)",
+        "CISA (cisa.gov/report)",
+        "Cyber insurer",
+        "Virginia Attorney General if resident data was taken"
+      ],
+      "caveats": [
+        "If resident personal data was taken, Va. Code § 18.2-186.6 notification duties may apply to the data owner."
+      ]
+    },
+    {
+      "id": "data-breach",
+      "name": "Data breach of personal information",
+      "description": "Unauthorized acquisition of computerized personal information held by an organization.",
+      "keywords": [
+        "data breach",
+        "exposed records",
+        "leaked database",
+        "breach notification",
+        "personal information exposed",
+        "exfiltrat",
+        "customer data stolen"
+      ],
+      "statutes": [
+        {
+          "id": "va-18.2-186.6",
+          "strength": "primary"
+        },
+        {
+          "id": "va-18.2-152.5",
+          "strength": "possible"
+        },
+        {
+          "id": "va-18.2-152.4",
+          "strength": "possible"
+        },
+        {
+          "id": "us-18-1030",
+          "strength": "possible"
+        },
+        {
+          "id": "va-18.2-152.12",
+          "strength": "civil"
+        }
+      ],
+      "document": [
+        "Date breach was discovered and how",
+        "Categories of personal information involved",
+        "Number of Virginia residents affected",
+        "Whether the data was encrypted or redacted",
+        "Notification dates and recipients (affected people and Attorney General)"
+      ],
+      "report_to": [
+        "Virginia Attorney General",
+        "Affected individuals",
+        "Law enforcement",
+        "Cyber insurer"
+      ],
+      "caveats": [
+        "Va. Code § 18.2-186.6 covers specific data types (such as SSN, driver's license, financial account numbers) when unencrypted or unredacted."
+      ]
+    },
+    {
+      "id": "identity-theft",
+      "name": "Identity theft or impersonation",
+      "description": "Using another person's identifying information or identity to gain money, credit, services, or to pose as them.",
+      "keywords": [
+        "identity theft",
+        "impersonat",
+        "pretending to be me",
+        "fake profile",
+        "my photo",
+        "claimed to be me",
+        "opened account in my name",
+        "stolen identity"
+      ],
+      "statutes": [
+        {
+          "id": "va-18.2-186.3",
+          "strength": "primary"
+        },
+        {
+          "id": "us-18-1028",
+          "strength": "primary"
+        },
+        {
+          "id": "us-18-1028A",
+          "strength": "possible"
+        },
+        {
+          "id": "va-18.2-152.5:1",
+          "strength": "possible"
+        },
+        {
+          "id": "va-18.2-186.4",
+          "strength": "possible"
+        }
+      ],
+      "document": [
+        "The impersonating account or document, captured with URL and date",
+        "Proof of your identity versus theirs",
+        "Any unlawful purpose (money, credit, harassment) the impersonation served",
+        "Platform report ID and response",
+        "Credit freeze and fraud alert records"
+      ],
+      "report_to": [
+        "IdentityTheft.gov (FTC)",
+        "Local police",
+        "FBI IC3 (ic3.gov)",
+        "Credit bureaus"
+      ],
+      "caveats": [
+        "Impersonation alone, without obtaining something or an unlawful purpose, may not meet the elements of § 18.2-186.3. Document the purpose."
+      ]
+    },
+    {
+      "id": "cyber-harassment",
+      "name": "Cyber harassment",
+      "description": "Repeated abusive, vulgar, or threatening online communications meant to intimidate or harass.",
+      "keywords": [
+        "harass",
+        "abusive messages",
+        "slurs",
+        "trolling",
+        "targeted",
+        "bullying",
+        "obscene",
+        "vulgar",
+        "pile on",
+        "spam dm"
+      ],
+      "statutes": [
+        {
+          "id": "va-18.2-152.7:1",
+          "strength": "primary"
+        },
+        {
+          "id": "va-18.2-60.3",
+          "strength": "possible"
+        },
+        {
+          "id": "us-18-2261A",
+          "strength": "possible"
+        },
+        {
+          "id": "us-47-223",
+          "strength": "possible"
+        }
+      ],
+      "document": [
+        "Each message with date, time, account, and platform",
+        "Your blocks and any stop-contact request",
+        "Content of each message (copied text and screenshot)",
+        "Effect on you (distress, safety steps taken)",
+        "Platform reports and responses"
+      ],
+      "report_to": [
+        "Platform trust and safety",
+        "Local police non-emergency line",
+        "Magistrate for a protective order if threats are present"
+      ],
+      "caveats": [
+        "§ 18.2-152.7:1 turns on the content (obscene, vulgar, lewd, or threats of illegal acts) plus intent to coerce, intimidate or harass. Rude but non-obscene messages may not qualify."
+      ]
+    },
+    {
+      "id": "cyberstalking",
+      "name": "Cyberstalking (course of conduct)",
+      "description": "Repeated contact or monitoring that puts a person in reasonable fear for their safety.",
+      "keywords": [
+        "stalk",
+        "following me online",
+        "tracking me",
+        "keeps contacting",
+        "new account after block",
+        "monitoring my",
+        "watching me",
+        "fear for my safety",
+        "ban evasion"
+      ],
+      "statutes": [
+        {
+          "id": "va-18.2-60.3",
+          "strength": "primary"
+        },
+        {
+          "id": "us-18-2261A",
+          "strength": "primary"
+        },
+        {
+          "id": "va-18.2-152.7:1",
+          "strength": "possible"
+        },
+        {
+          "id": "va-18.2-60",
+          "strength": "possible"
+        }
+      ],
+      "document": [
+        "Each act with date, time, platform and account",
+        "Proof the conduct was directed at you and continued after a block or warning",
+        "Any statements showing intent or tracking knowledge",
+        "Your reasonable fear: why the conduct frightened you",
+        "Links between accounts (writing patterns, timing, shared contacts), described as observations, not conclusions"
+      ],
+      "report_to": [
+        "Local police",
+        "Magistrate for a protective order",
+        "FBI IC3 if across state lines",
+        "Platform safety teams"
+      ],
+      "caveats": [
+        "Va. Code § 18.2-60.3 requires conduct on more than one occasion and intent to cause fear of death, criminal sexual assault or bodily injury. Harassment alone does not satisfy it.",
+        "Linking alternate accounts to one person is an investigation question for law enforcement and platforms. Record observations; do not assert identity."
+      ]
+    },
+    {
+      "id": "threats",
+      "name": "Threats of violence",
+      "description": "Written or electronic threats to kill or injure a person or their family.",
+      "keywords": [
+        "threat",
+        "kill you",
+        "hurt you",
+        "i will find you",
+        "come to your house",
+        "shoot",
+        "bodily harm",
+        "you won't see"
+      ],
+      "statutes": [
+        {
+          "id": "va-18.2-60",
+          "strength": "primary"
+        },
+        {
+          "id": "us-18-875",
+          "strength": "primary"
+        },
+        {
+          "id": "va-18.2-60.3",
+          "strength": "possible"
+        },
+        {
+          "id": "us-18-2261A",
+          "strength": "possible"
+        }
+      ],
+      "document": [
+        "Exact words, unedited, with sender, date and time",
+        "Surrounding conversation for context",
+        "Why you took it seriously",
+        "Any prior violence or stalking by the sender"
+      ],
+      "report_to": [
+        "911 if danger is immediate",
+        "Local police",
+        "FBI tips (tips.fbi.gov) for interstate threats"
+      ],
+      "caveats": [
+        "If you are in immediate danger, call 911 before logging anything."
+      ]
+    },
+    {
+      "id": "doxxing",
+      "name": "Doxxing (publishing identifying information)",
+      "description": "Posting a person's name or photo with their address or identifying information to harass or intimidate.",
+      "keywords": [
+        "dox",
+        "posted my address",
+        "leaked my info",
+        "published my phone",
+        "home address online",
+        "real name posted",
+        "government name"
+      ],
+      "statutes": [
+        {
+          "id": "va-18.2-186.4",
+          "strength": "primary"
+        },
+        {
+          "id": "va-18.2-152.7:1",
+          "strength": "possible"
+        },
+        {
+          "id": "va-18.2-60.3",
+          "strength": "possible"
+        },
+        {
+          "id": "us-18-2261A",
+          "strength": "possible"
+        }
+      ],
+      "document": [
+        "Post URL, capture date, and account that published it",
+        "What information was published (name, photo, address, ID data)",
+        "Proof the information is accurate",
+        "Evidence of intent to coerce, intimidate or harass",
+        "Takedown requests and outcomes"
+      ],
+      "report_to": [
+        "Platform takedown form",
+        "Local police",
+        "Hosting provider abuse contact"
+      ],
+      "caveats": [
+        "§ 18.2-186.4 covers publication of name or photograph together with identifying information or a primary residence address with intent to coerce, intimidate or harass. A threat to dox, with nothing yet published, is analyzed under other statutes (for example, extortion or threats)."
+      ]
+    },
+    {
+      "id": "ncii",
+      "name": "Non-consensual intimate images",
+      "description": "Spreading or selling nude or sexually explicit images of someone to harass, coerce or intimidate them.",
+      "keywords": [
+        "revenge porn",
+        "intimate images",
+        "nude photos",
+        "leaked nudes",
+        "deepfake",
+        "ai generated nude",
+        "sexual images"
+      ],
+      "statutes": [
+        {
+          "id": "va-18.2-386.2",
+          "strength": "primary"
+        },
+        {
+          "id": "va-18.2-59",
+          "strength": "possible"
+        },
+        {
+          "id": "va-18.2-152.7:1",
+          "strength": "possible"
+        },
+        {
+          "id": "va-18.2-60.3",
+          "strength": "possible"
+        }
+      ],
+      "document": [
+        "Where the image was posted, with URL and date (do not re-share it)",
+        "Who posted it and proof of intent to harass",
+        "Proof you did not consent",
+        "Takedown request IDs",
+        "If the image depicts a minor, stop and contact law enforcement; do not copy or store it"
+      ],
+      "report_to": [
+        "Local police",
+        "NCMEC CyberTipline if a minor is depicted",
+        "StopNCII.org",
+        "Platform takedown"
+      ],
+      "caveats": [
+        "Do not store or forward intimate images, especially of minors. Record links and descriptions only."
+      ]
+    },
+    {
+      "id": "denial-of-service",
+      "name": "Denial of service or disruption",
+      "description": "Flooding or interfering with a service so legitimate users cannot use it.",
+      "keywords": [
+        "ddos",
+        "denial of service",
+        "flood",
+        "site down",
+        "traffic spike",
+        "botnet",
+        "overload"
+      ],
+      "statutes": [
+        {
+          "id": "va-18.2-152.4",
+          "strength": "primary"
+        },
+        {
+          "id": "us-18-1030",
+          "strength": "primary"
+        },
+        {
+          "id": "va-18.2-152.12",
+          "strength": "civil"
+        }
+      ],
+      "document": [
+        "Start and end times with time zone",
+        "Traffic logs, source IP ranges and request patterns",
+        "Downtime and business impact in dollars",
+        "Any extortion demand attached"
+      ],
+      "report_to": [
+        "Hosting provider and ISP",
+        "FBI IC3 (ic3.gov)",
+        "CISA (cisa.gov/report)"
+      ],
+      "caveats": [
+        "Aggravation thresholds in § 18.2-152.4 depend on damage value and target type. Track dollar impact."
+      ]
+    },
+    {
+      "id": "alt-account-evasion",
+      "name": "Block or ban evasion with alternate accounts",
+      "description": "Creating new accounts to contact or monitor someone after being blocked or banned.",
+      "keywords": [
+        "alt account",
+        "new account after block",
+        "ban evasion",
+        "second account",
+        "burner account",
+        "sockpuppet"
+      ],
+      "statutes": [
+        {
+          "id": "va-18.2-60.3",
+          "strength": "possible"
+        },
+        {
+          "id": "va-18.2-152.7:1",
+          "strength": "possible"
+        },
+        {
+          "id": "us-18-2261A",
+          "strength": "possible"
+        },
+        {
+          "id": "us-18-1030",
+          "strength": "contested"
+        }
+      ],
+      "document": [
+        "Dates of the block or ban and when each new account appeared",
+        "What each account sent or did",
+        "Writing, timing and contact-overlap patterns, described neutrally",
+        "Platform reports"
+      ],
+      "report_to": [
+        "Platform trust and safety",
+        "Local police"
+      ],
+      "caveats": [
+        "Creating an alternate account is not itself a crime. It is best used as evidence of intent and course of conduct in a stalking or harassment case.",
+        "Treating a platform ban as a CFAA violation is contested: after Van Buren v. United States (2021), breaking a terms-of-service rule generally does not by itself 'exceed authorized access'. Treat § 1030 here as unsettled and ask counsel."
+      ]
+    },
+    {
+      "id": "cyber-physical-harm",
+      "name": "Computer-caused physical harm",
+      "description": "A computer or network is used to physically injure someone, for example tampering with a connected medical device, vehicle or building control system.",
+      "keywords": [
+        "medical device",
+        "pacemaker",
+        "insulin pump",
+        "vehicle hack",
+        "smart lock",
+        "industrial control",
+        "scada",
+        "thermostat",
+        "physical injury",
+        "injured"
+      ],
+      "statutes": [
+        {
+          "id": "va-18.2-152.7",
+          "strength": "primary"
+        },
+        {
+          "id": "va-18.2-152.4",
+          "strength": "primary"
+        },
+        {
+          "id": "us-18-1030",
+          "strength": "primary"
+        },
+        {
+          "id": "va-18.2-152.12",
+          "strength": "civil"
+        }
+      ],
+      "document": [
+        "Device or system affected, with make, model and firmware",
+        "Logs showing the unauthorized command or change",
+        "Medical or safety records of the injury",
+        "Preserved device in its current state"
+      ],
+      "report_to": [
+        "911 if anyone is in danger",
+        "Local police",
+        "FBI field office",
+        "Device manufacturer security contact",
+        "CISA (cisa.gov/report)"
+      ],
+      "caveats": [
+        "If anyone is in danger, call 911 first. This type is rare; § 18.2-152.7 requires that the computer use caused physical injury to an individual."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "version": "1.0",
+  "note": "Small English lexicon for rough triage. Scores run from -4 (very hostile) to +4 (very positive). Extend freely; add stems ending in * to the category lists.",
+  "negative": {
+    "hate": -3, "hated": -3, "despise": -3, "disgusting": -3, "pathetic": -3, "worthless": -3, "stupid": -2, "idiot": -3, "moron": -3,
+    "loser": -2, "trash": -2, "garbage": -2, "ugly": -2, "fake": -1, "liar": -2, "coward": -2, "creep": -2, "psycho": -2, "crazy": -1,
+    "kill": -4, "die": -4, "dead": -3, "death": -3, "hurt": -3, "beat": -2, "destroy": -3, "ruin": -3, "end": -1, "suffer": -3, "burn": -3,
+    "regret": -2, "pay": -1, "revenge": -3, "payback": -3, "punish": -3, "attack": -3, "haunt": -3, "stalk": -3, "hunt": -3, "hunting": -3,
+    "watching": -1, "tracking": -2, "followed": -2, "expose": -3, "leak": -2, "doxx": -3, "dox": -3, "humiliate": -3, "shame": -2,
+    "scared": -2, "afraid": -2, "terrified": -3, "afraid": -2, "fear": -2, "panic": -2, "unsafe": -3, "threat": -3, "threaten": -3,
+    "angry": -2, "furious": -3, "rage": -3, "mad": -2, "annoying": -1, "sick": -2, "awful": -3, "terrible": -3, "horrible": -3, "bad": -2,
+    "wrong": -1, "never": -1, "stop": -1, "blocked": -1, "alone": -2, "nobody": -1, "cry": -2, "sad": -2, "hopeless": -3, "helpless": -3,
+    "damn": -2, "hell": -2, "fuck": -3, "fucking": -3, "shit": -3, "bitch": -3, "asshole": -3, "bastard": -3, "slut": -3, "whore": -3, "dick": -3, "cunt": -4
+  },
+  "positive": {
+    "love": 3, "loved": 3, "great": 3, "good": 2, "nice": 2, "thanks": 2, "thank": 2, "appreciate": 2, "happy": 3, "glad": 2, "safe": 2,
+    "sorry": 1, "please": 1, "kind": 2, "friend": 2, "help": 2, "support": 2, "better": 1, "calm": 1, "respect": 2, "welcome": 2, "peace": 2
+  },
+  "intensifiers": { "very": 1.3, "really": 1.25, "so": 1.2, "extremely": 1.5, "fucking": 1.5, "totally": 1.2, "absolutely": 1.4, "always": 1.2, "forever": 1.3 },
+  "negators": ["not", "no", "never", "dont", "don't", "cant", "can't", "wont", "won't", "isnt", "isn't", "wasnt", "wasn't", "without", "nothing"],
+  "categories": {
+    "hostility": ["hate*", "despis*", "destroy*", "ruin*", "revenge", "payback", "punish*", "attack*", "idiot*", "moron*", "stupid", "pathetic", "worthless", "loser*", "trash", "garbage", "bitch*", "asshole*", "bastard*", "fuck*", "shit*"],
+    "intimidation": ["kill*", "die", "dead", "hurt*", "haunt*", "stalk*", "hunt*", "track*", "regret*", "suffer*", "burn*", "expose*", "leak*", "dox*", "watching", "followed", "threat*", "beat*"],
+    "contempt": ["pathetic", "worthless", "loser*", "coward*", "creep*", "disgusting", "ugly", "fake", "liar*", "psycho", "crazy", "trash", "garbage"],
+    "distress": ["scared", "afraid", "terrified", "fear*", "panic*", "unsafe", "alone", "cry*", "sad", "hopeless", "helpless", "sick"],
+    "positive": ["love*", "great", "good", "nice", "thank*", "appreciate*", "happy", "glad", "safe", "kind", "friend*", "help*", "support*", "respect*", "welcome*", "peace"]
+  }
+}
