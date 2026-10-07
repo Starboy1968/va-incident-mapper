@@ -1,0 +1,14 @@
+__pycache__/
+*.egg-info/
+build/
+dist/
+.venv/
+
+# Real incident data never belongs in this repository
+incidents.jsonl
+incident-intake*.json
+*.local.jsonl
+evidence/
+reports/
+!examples/sample-incidents.jsonl
+_to_delete/
